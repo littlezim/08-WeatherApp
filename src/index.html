@@ -13,7 +13,43 @@
 	</head>
 	
 
-	<body>
+	<body ng-controller="HomeController">
+		<!-- Container for Everything -->
+		<div class= "container">
+			<!-- Extra big attention grabbing text for Header -->
+			<div class="jumbotron jumbotron-fluid">
+				<h1 class= "display-3">Origin Weather Application</h1>
+				<p class="lead">Always know if you'll need an umbrealla</p>
+			</div>
+
+			<div class="btn-group" role="group" aria-label="Basic Example">
+				<button type="button" class="btn btn-primary">San Diego</button>
+				<button type="button" class="btn btn-primary">New York</button>
+				<button type="button" class="btn btn-primary">Washington DC</button>
+				<button type="button" class="btn btn-primary">London</button>
+				<button type="button" class="btn btn-primary">Tokyo</button>
+			</div>
+			
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Enter Your Location" ">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button">Go!</button>
+				</span>
+			</div>
+			<br>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">Panel title</h3>
+				</div>
+				<div class="panel-body">
+					Panel content
+				</div>
+			</div>
+		
+		</div>
+
+
+
 
 		<!--bower:js-->
 		<script src="bower_components/angular/angular.js"></script>
