@@ -1,10 +1,11 @@
 <!Doctype html>
-<html lang="en">
+<html lang="en" ng-app="app">
 	<head>
 		<title>Weather App</title>
 
 		<!--bower:css-->
 		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
 		<!--endbower-->
 
 		<!--inject:css-->
@@ -13,53 +14,112 @@
 	</head>
 	
 
-	<body ng-controller="HomeController">
+	<body ng-controller="HomeController as home">
 		<!-- Container for Everything -->
 		<div class= "container">
 			<!-- Extra big attention grabbing text for Header -->
 			<div class="jumbotron jumbotron-fluid">
 				<h1 class= "display-3">Origin Weather Application</h1>
-				<p class="lead">Always know if you'll need an umbrealla</p>
+				<p1 class="lead">Always know if you'll need an umbrealla</p1>
 			</div>
 
 			<div class="btn-group" role="group" aria-label="Basic Example">
-				<button type="button" class="btn btn-primary">San Diego</button>
-				<button type="button" class="btn btn-primary">New York</button>
-				<button type="button" class="btn btn-primary">Washington DC</button>
-				<button type="button" class="btn btn-primary">London</button>
-				<button type="button" class="btn btn-primary">Tokyo</button>
+				<button ng-click="home.getCityData('San Diego')" type="button" class="btn btn-primary">San Diego</button>
+				<button ng-click="home.getCityData('New York')" type="button" class="btn btn-primary">New York</button>
+				<button ng-click="home.getCityData('Washington DC')" type="button" class="btn btn-primary">Washington DC</button>
+				<button ng-click="home.getCityData('London')" type="button" class="btn btn-primary">London</button>
+				<button ng-click="home.getCityData('Tokyo')" type="button" class="btn btn-primary">Tokyo</button>
 			</div>
 			
 			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Enter Your Location" ">
+				<input ng-model="home.city" type="text" class="form-control" placeholder="Enter Your Location" ">
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">Go!</button>
+					<button ng-click="home.getCityData(home.city)" class="btn btn-default" type="button">Go!</button>
 				</span>
 			</div>
+
 			<br>
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<h3 class="panel-title">Panel title</h3>
+
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">City Information</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row text-center">
+								<h2><img ng-src="http://openweathermap.org/img/w/{{home.weatherData.weather[0].icon}}.png" />{{home.weatherData.name}}
+								</h2>
+								<p>{{home.weatherData.coord}}</p>
+							</div>
+							<hr>
+
+							<div class="row paragraph">
+								<div class="col-xs-12 col-sm-3 col-sm-offset-1">
+									<h4>Temperature</h4>
+									<p>{{home.weatherData.main.temp}}</p>
+								</div>
+								<div class="col-xs-12 col-sm-3 col-sm-offset-1">
+									<h4>Pressure</h4>
+									<p>{{home.weatherData.main.pressure}}</p>
+								</div>
+								<div class="col-xs-12 col-sm-3 col-sm-offset-1">
+									<h4>Humidity</h4>
+									<p>{{home.weatherData.main.humidity}}</p>
+								</div>
+							</div>	
+
+							<div class="row paragraph">
+								<div class="col-xs-12 col-sm-3 col-sm-offset-1">
+									<h4>Lowest Temp</h4>
+									<p>{{home.weatherData.main.temp_min}}</p>
+								</div>
+								<div class="col-xs-12 col-sm-3 col-sm-offset-1">
+									<h4>Highest Temp</h4>
+									<p>{{home.weatherData.main.temp_max}}</p>
+								</div>
+								<div class="col-xs-12 col-sm-3 col-sm-offset-1">
+									<h4>Wind Speed</h4>
+									<p>{{home.weatherData.wind.speed}}</p>
+								</div>								
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="panel-body">
-					Panel content
+
+				<div class="col-xs-12 col-sm-6">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">Search History</h3>
+						</div>
+						<div class="panel-body">
+							<table class="table table-striped">
+								<tr ng-repeat = "hist in home.history">
+									<td class="text-left">{{hist.city}}</td>
+									<td class="text-right">{{hist.date | date}}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
-		
 		</div>
 
 
-
+		<!-- api source -->
+		<!-- <script src="http://api.openweathermap.org/data/2.5/forecast/city?id=524901&APPID=ed5f487c18c10403c896daa2dcacbfc6"></script> -->
 
 		<!--bower:js-->
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/jquery/dist/jquery.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+		<script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
 		<!--endbower-->
 
 		<!--inject:js-->
 		<script src="js/app.js"></script>
 		<script src="js/home.controller.js"></script>
+		<script src="js/weatherfactory.js"></script>
 		<!--endinject-->
 	</body>
 </html>
