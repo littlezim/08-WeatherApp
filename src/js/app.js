@@ -1,2 +1,2 @@
 // create module
-angular.module('app', []);
+angular.module('app', ['toastr']);

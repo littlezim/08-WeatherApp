@@ -6,42 +6,46 @@
             .module('app')
             .controller('HomeController', Controller);
     
-        Controller.$inject = ['weatherfactory'];
+    	// papa style injecting of paramater
+        Controller.$inject = ['weatherfactory', 'toastr'];
     
         /* @ngInject */
-	        function Controller(weatherfactory) {
+	        function Controller(weatherfactory, toastr) {
+	        	// get rid of $scope by creating "this" variable. based on papa style
 	            var vm = this;
 	            vm.title = 'HomeController';
+	            // create empty array for search history
 	            vm.history = [];
-	    
+
+
+	           // create function to get the array information from api through factory
 	           vm.getCityData = function(city){
-	           	console.log('getCityData running...' + city);
-	           	weatherfactory.getWeatherData(city).then(
+
+	           		weatherfactory.getWeatherData(city).then(
 	           		function(response) {
 
-	           		vm.weatherData = response.data;
-	           		console.log(vm.weatherData);
-	           		vm.icon = "http://openweathermap.org/img/w/" + vm.weatherData.weather[0].icon + ".png";
-					console.log(vm.icon);
+	           		var inputCity = vm.city.toLowerCase();
+	           		var responseCity = response.data.name;
+	           		responseCity = responseCity.toString();
+	           		responseCity = responseCity.toLowerCase();
 
-	           		vm.history.push({
+		           		if(response.cod === 404 || inputCity !== responseCity){
+		           			toastr.error('Invalid city name.', 'Error');
+		           		}
+		           		
+		           		else{
+		           		//create storage for information gotten through factory function
+		           		vm.weatherData = response.data;
 
-	           			city : response.data.name,
-	           			date : new Date()
+		           		// push city name and date to history array for search history
+		           		vm.history.push({
+
+		           			// create objects for city and date to be pushed to history array
+		           			city : response.data.name,
+		           			date : new Date()
+		           		});
+		           		}
 	           		});
-
-	           	},
-	           	function(error){
-	           	});
-	        }
-
-	       activate();
-
-	       ///////////////////////
-
-	       function activate(){
-
-	       }
-
+	        	}
         }
     })();

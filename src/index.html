@@ -13,7 +13,7 @@
 		<!--endinject-->
 	</head>
 	
-
+	<!-- Dont forget the "as ......" for the papa style-->
 	<body ng-controller="HomeController as home">
 		<!-- Container for Everything -->
 		<div class= "container">
@@ -22,7 +22,7 @@
 				<h1 class= "display-3">Origin Weather Application</h1>
 				<p1 class="lead">Always know if you'll need an umbrealla</p1>
 			</div>
-
+			<!-- Buttons for preset city searches -->
 			<div class="btn-group" role="group" aria-label="Basic Example">
 				<button ng-click="home.getCityData('San Diego')" type="button" class="btn btn-primary">San Diego</button>
 				<button ng-click="home.getCityData('New York')" type="button" class="btn btn-primary">New York</button>
@@ -30,7 +30,7 @@
 				<button ng-click="home.getCityData('London')" type="button" class="btn btn-primary">London</button>
 				<button ng-click="home.getCityData('Tokyo')" type="button" class="btn btn-primary">Tokyo</button>
 			</div>
-			
+			<!-- input field for the name of the city to be searched for -->
 			<div class="input-group">
 				<input ng-model="home.city" type="text" class="form-control" placeholder="Enter Your Location" ">
 				<span class="input-group-btn">
@@ -42,12 +42,14 @@
 
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
+					<!-- Information panel based on users search and api data-->
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h3 class="panel-title">City Information</h3>
 						</div>
 						<div class="panel-body">
 							<div class="row text-center">
+								<!-- input image for cloudy, sunny, overcast, etc. from the api's data array -->
 								<h2><img ng-src="http://openweathermap.org/img/w/{{home.weatherData.weather[0].icon}}.png" />{{home.weatherData.name}}
 								</h2>
 								<p>{{home.weatherData.coord}}</p>
@@ -87,6 +89,7 @@
 					</div>
 				</div>
 
+				<!-- Search history panel -->
 				<div class="col-xs-12 col-sm-6">
 					<div class="panel panel-info">
 						<div class="panel-heading">
@@ -104,10 +107,6 @@
 				</div>
 			</div>
 		</div>
-
-
-		<!-- api source -->
-		<!-- <script src="http://api.openweathermap.org/data/2.5/forecast/city?id=524901&APPID=ed5f487c18c10403c896daa2dcacbfc6"></script> -->
 
 		<!--bower:js-->
 		<script src="bower_components/angular/angular.js"></script>
