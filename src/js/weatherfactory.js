@@ -18,8 +18,8 @@
         ////////////////
 
         //Get information from api based on user's search input
-        function getWeatherData(cityName) {
-          return $http.get('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=ed5f487c18c10403c896daa2dcacbfc6&units=imperial');
+        function getWeatherData(city) {
+          return $http.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&APPID=ed5f487c18c10403c896daa2dcacbfc6&units=imperial');
         }
     }
 })();

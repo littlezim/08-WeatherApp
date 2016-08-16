@@ -17,20 +17,19 @@
 	            // create empty array for search history
 	            vm.history = [];
 
-
 	           // create function to get the array information from api through factory
 	           vm.getCityData = function(city){
 
 	           		weatherfactory.getWeatherData(city).then(
 	           		function(response) {
-
-	           		var inputCity = vm.city.toLowerCase();
+	           		// standardize the information crom city for if statements
+	           		var inputCity = city.toLowerCase();
 	           		var responseCity = response.data.name;
 	           		responseCity = responseCity.toString();
 	           		responseCity = responseCity.toLowerCase();
 
 		           		if(response.cod === 404 || inputCity !== responseCity){
-		           			toastr.error('Invalid city name.', 'Error');
+		           			toastr.error('An unexpected error has occurred.', 'Error');
 		           		}
 		           		
 		           		else{
